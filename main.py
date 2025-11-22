@@ -23,20 +23,23 @@ def main() -> None:
                     race=race
                 )
 
-        guild = None
-        if guild_data := player_data.get("guild"):
-            guild, _ = Guild.objects.get_or_create(
-                name=guild_data.get("name"),
-                description=guild_data.get("description")
-            )
+            guild = None
+            if guild_data := player_data.get("guild"):
+                guild, _ = Guild.objects.get_or_create(
+                    name=guild_data.get("name"),
+                    description=guild_data.get("description")
+                )
 
-        Player.objects.create(
-            nickname=player,
-            email=player_data.get("email"),
-            bio=player_data.get("bio"),
-            race=race,
-            guild=guild
-        )
+            Player.objects.create(
+                nickname=player,
+                email=player_data.get("email"),
+                bio=player_data.get("bio"),
+                race=race,
+                guild=guild
+            )
+            continue
+
+        raise ValueError("Player cannot be created without race!")
 
 
 if __name__ == "__main__":
